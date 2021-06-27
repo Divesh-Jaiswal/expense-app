@@ -1,0 +1,38 @@
+<div class="row my-3">
+  <div class="form-group m-2">
+    <input type="text"   class="form-control" placeholder="Search by title" (input)="onSearch($event)">
+  </div>
+  <div class="col-md-10 rounded shadow">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th >Title<i class="fa fa-sort"></i></th>
+          <th>Amount<i class="fa fa-sort"></i></th>
+          <th>Date<i class="fa fa-sort"></i></th>
+          <th>Action</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let expense of expenseArray | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+          <th scope="row">{{i+1}}</th>
+            <td >{{expense.title}}</td>
+            <td >{{expense.amount | currency:'INR' }}</td>
+            <td >{{expense.date | date}}</td>
+          <td>
+              <!-- <button  class=" mx-2 btn btn-success btn-sm" routerLink="/expense-Detail/{{expense.id}}">Details</button> -->
+              <span routerLink="/expense-Detail/{{expense.id}}"><i class="fas fa-info-circle mx-1"></i></span>
+              <!-- <button class="btn btn-dark btn-sm" routerLink="/expense-update/{{expense.id}}">Edit</button> -->
+              <span routerLink="/expense-update/{{expense.id}}"><i class="fas fa-edit mx-1"></i></span>
+              <!-- <button class=" mx-2 btn btn-danger btn-sm" (click)="onDeleteExpense(expense.id)">Delete</button> -->
+              <span (click)="onDeleteExpense(expense.id)"><i class="fas fa-trash-alt mx-1"></i></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="float-right">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  </div>
+</div>
